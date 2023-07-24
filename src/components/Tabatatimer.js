@@ -5,30 +5,45 @@ export default function TabataTimer() {
   const [seconds, setSeconds] = useState(10);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [workout, setWorkout] = useState(false);
+  const [buttonMessage, setButtonMessage] = useState("Start");
 
   useEffect(() => {
     let interval = setInterval(() => {
       clearInterval(interval);
-      if (seconds === 0) {
-        if (workout) {
-          setSeconds(10);
-          setWorkout(false);
+      if (buttonMessage === "Reset") {
+        if (seconds === 0) {
+          if (workout) {
+            setSeconds(10);
+            setWorkout(false);
+          } else {
+            setSeconds(20);
+            setWorkout(true);
+          }
         } else {
-          setSeconds(20);
-          setWorkout(true);
+          setSeconds(seconds - 1)
         }
       } else {
-        setSeconds(seconds - 1);
+        setSeconds(10);
       }
     }, 1000);
-  }, [seconds, workout])
+  }, [seconds, workout, buttonMessage])
+
+  const toggleTimer = () => {
+    if (buttonMessage === "Start") {
+      setButtonMessage("Reset");
+    } else {
+      setButtonMessage("Start");
+      setSeconds(10);
+    }
+  }
 
   return (
-    <div className="TabataTimer">
+    <div className="tabataTimer">
       {displayMessage && <div className="message">Add exercises and press Start you fat fuck</div>}
       <div className="timer">
         {seconds}
       </div>
+      <button className="startButton" onClick={toggleTimer}>{buttonMessage}</button>
     </div>
   );
 }
