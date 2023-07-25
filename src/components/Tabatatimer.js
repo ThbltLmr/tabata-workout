@@ -1,7 +1,7 @@
 import { clear } from "@testing-library/user-event/dist/clear";
 import { useState, useEffect } from "react";
 
-export default function TabataTimer() {
+export default function TabataTimer({userWorkout}) {
   const [seconds, setSeconds] = useState(10);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [workout, setWorkout] = useState(false);
@@ -43,6 +43,17 @@ export default function TabataTimer() {
       <div className="timer">
         {seconds}
       </div>
+      <ul className="exercisesList">
+        {userWorkout.map(({name, thumbnail}) => {
+          return (
+            <li key={name}>
+              <div className="characters-thumb">
+                <img src={thumbnail} alt={`${name} Thumb`} />
+              </div>
+            </li>
+          );
+        })}
+      </ul>
       <button className="startButton" onClick={toggleTimer}>{buttonMessage}</button>
     </div>
   );

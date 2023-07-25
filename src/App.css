@@ -1,23 +1,62 @@
 .App {
   text-align: center;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .tabataTimer {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto 1em auto;
+  background-color: rgb(231, 231, 231);
+  width: 80%;
+  padding: 0.2em;
+  border-radius: 1em;
 }
 
 .timer {
-  font-size: 10em;
+  font-size: 6em;
   font-weight: 700;
 }
 
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.exercisesContainer {
+  font-size: 2em;
+  font-weight: 700;
+  margin: 0 auto;
+  background-color: rgb(231, 231, 231);
+  width: 80%;
+  padding: 0.2em;
+  border-radius: 1em;
+}
+
+.exercisesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+.exercisesList li img {
+  background-color: rgb(185, 185, 185);
+  margin: 0 0.5em;
+  width: 2em;
+  border-radius: 5%;
+  padding: 0.5em
+}
+
 .startButton {
-  font-size: 3em;
+  font-size: 2em;
+  margin-bottom: 0.5em;
 }
 
 .body {
