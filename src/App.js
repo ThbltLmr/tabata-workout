@@ -3,18 +3,12 @@ import './App.css';
 import { clear } from "@testing-library/user-event/dist/clear";
 import { useState, useEffect } from "react";
 import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd';
+import initalData from './exercise_data';
+import ExerciseList from './components/ExerciseList';
 
 function App() {
-  const exercises = [
-    {
-      name: 'squats',
-      thumbnail: './thumbnails/squats.png'
-    },
-    {
-      name: 'push-ups',
-      thumbnail: './thumbnails/pushups.png'
-    }
-  ]
+  let state = initalData;
+
   const [seconds, setSeconds] = useState(10);
   const [workout, setWorkout] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("Start");
@@ -49,6 +43,12 @@ function App() {
     }
   }
 
+  const onDragEnd = (result) => {
+
+  }
+
+  let i = 0
+
   return (
     <div className="App">
       <div className="tabataTimer">
@@ -56,9 +56,23 @@ function App() {
         <button className="startButton" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
       <div className='exercisesContainer'>
-        Drag exercises from the list below to build your workout
-        <ul className="exercisesList">
-          {exercises.map(({name, thumbnail}) => {
+        <DragDropContext onDragEnd={onDragEnd}>
+          {state.listOrder.map((listId) => {
+            const list = state.lists[listId];
+            const exercises = list.exerciseIds.map((exerciseId) => state.exercises[exerciseId]);
+            return < ExerciseList key={list.id} list={list} exercises={exercises} />
+          })}
+        </DragDropContext>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+
+{/* <ul className="exercisesList">
+          {initalData.map(({name, thumbnail}) => {
             return (
               <li key={name}>
                   <div className="characters-thumb">
@@ -67,10 +81,4 @@ function App() {
               </li>
             );
           })}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+        </ul> */}
