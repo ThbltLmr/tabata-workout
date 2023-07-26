@@ -6,7 +6,7 @@ export default function ExerciseList({list, exercises}) {
   return (
     <div className="ExerciseList">
       <h1 className="ListTitle">{list.message}</h1>
-        <Droppable droppableId={list.id} key={list.id}>
+        <Droppable droppableId={list.id} key={list.id} direction="horizontal">
           {provided => (
             <div
             className="Exercises"

@@ -7,7 +7,7 @@ import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 
 function App() {
-  let state = initalData;
+  const [state, setState] = useState(initalData);
 
   const [seconds, setSeconds] = useState(10);
   const [workout, setWorkout] = useState(false);
@@ -44,10 +44,74 @@ function App() {
   }
 
   const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
 
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    if (
+      destination.droppableId === "availableExercises"
+    ) {
+      return;
+    }
+
+    if (
+      destination.droppableId === "workout" &&
+      source.droppableId === "availableExercises") {
+        const title = `exercise-${Object.keys(state.exercises).length + 1}`
+        const newExercise = {
+          id: title,
+          name: state.exercises[draggableId].name,
+          thumbnail: state.exercises[draggableId].thumbnail
+        }
+        const newWorkoutIds = state.lists[destination.droppableId].exerciseIds
+        newWorkoutIds.splice(destination.index, 0, newExercise.id)
+        const newState ={
+          ...state,
+          exercises: {
+            ...state.exercises,
+            [newExercise.id]: newExercise
+          },
+          lists: {
+            ...state.lists,
+            workout: {
+              ...state.lists.workout,
+              exerciseIds: newWorkoutIds
+            }
+          }
+        }
+      setState(newState);
+    }
+
+    if (
+      destination.droppableId === "workout" &&
+      source.droppableId === "workout") {
+        const newWorkoutIds = state.lists[source.droppableId].exerciseIds
+        newWorkoutIds.splice(source.index, 1)
+        newWorkoutIds.splice(destination.index, 0, draggableId)
+        console.log("check")
+        console.log(newWorkoutIds)
+        const newState ={
+          ...state,
+          lists: {
+            ...state.lists,
+            workout: {
+              ...state.lists.workout,
+              exerciseIds: newWorkoutIds
+            }
+          }
+        }
+      setState(newState);
+      }
   }
-
-  let i = 0
 
   return (
     <div className="App">
