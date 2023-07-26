@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import { clear } from "@testing-library/user-event/dist/clear";
 import { useState, useEffect } from "react";
-import { Draggable, DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 
@@ -46,24 +44,44 @@ function App() {
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
-    if (!destination) {
+    if (source.droppableId=== "availableExercises" &&
+       !destination
+    ) {
       return;
     }
 
-    if (
+    else if (source.droppableId === "workout" &&
+       !destination
+    ) {
+      const newWorkoutIds = state.lists[source.droppableId].exerciseIds
+      newWorkoutIds.splice(source.index, 1)
+      const newState = {
+        ...state,
+        lists: {
+          ...state.lists,
+          workout: {
+            ...state.lists.workout,
+            exerciseIds: newWorkoutIds
+          }
+        }
+      }
+      setState(newState);
+    }
+
+    else if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return;
     }
 
-    if (
+    else if (
       destination.droppableId === "availableExercises"
     ) {
       return;
     }
 
-    if (
+    else if (
       destination.droppableId === "workout" &&
       source.droppableId === "availableExercises") {
         const title = `exercise-${Object.keys(state.exercises).length + 1}`
@@ -91,7 +109,7 @@ function App() {
       setState(newState);
     }
 
-    if (
+    else if (
       destination.droppableId === "workout" &&
       source.droppableId === "workout") {
         const newWorkoutIds = state.lists[source.droppableId].exerciseIds
@@ -133,16 +151,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <ul className="exercisesList">
-          {initalData.map(({name, thumbnail}) => {
-            return (
-              <li key={name}>
-                  <div className="characters-thumb">
-                    <img src={thumbnail} alt={`${name} Thumb`} />
-                  </div>
-              </li>
-            );
-          })}
-        </ul> */}
