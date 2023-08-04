@@ -10,6 +10,8 @@ function App() {
   const [seconds, setSeconds] = useState(10);
   const [workout, setWorkout] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("Start");
+  const [workoutList, setWorkoutList] = useState(state.lists.workout.exerciseIds);
+  const [currentExercise, setCurrentExercise] = useState("")
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -18,11 +20,19 @@ function App() {
         if (seconds === 0) {
           if (workout) {
             setSeconds(10);
+            setWorkoutList(state.lists.workout.exerciseIds);
+            document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
             setWorkout(false);
           } else {
+            setWorkoutList(state.lists.workout.exerciseIds);
             setSeconds(20);
+            document.getElementById(currentExercise).firstChild.style.border = "5px solid red";
             setWorkout(true);
           }
+        } else if (seconds === 1 && !workout) {
+          setWorkoutList(state.lists.workout.exerciseIds);
+          currentExercise === "" ? setCurrentExercise(workoutList[0]) : setCurrentExercise(workoutList[workoutList.findIndex((exercise) => exercise === currentExercise) + 1]);
+          setSeconds(seconds - 1)
         } else {
           setSeconds(seconds - 1)
         }
@@ -30,7 +40,7 @@ function App() {
         setSeconds(10);
       }
     }, 1000);
-  }, [seconds, workout, buttonMessage])
+  }, [seconds, workout, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
     if (buttonMessage === "Start") {
