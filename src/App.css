@@ -10,7 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto 1em auto;
+  margin: 3em auto 1em auto;
   background-color: rgb(231, 231, 231);
   width: 80%;
   padding: 0.2em;
@@ -37,16 +37,22 @@
   border-radius: 1em;
 }
 
-.exercisesList {
-  list-style: none;
+.ExerciseList {
   padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
   margin-top: 0.5em;
 }
 
-.exercisesList li img {
+.ListTitle {
+  font-size: 0.8em;
+}
+
+.Exercises {
+  display: flex;
+  justify-content: center;
+}
+
+.ExerciseImage {
   background-color: rgb(185, 185, 185);
   margin: 0 0.5em;
   width: 2em;
