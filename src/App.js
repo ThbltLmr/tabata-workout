@@ -145,9 +145,9 @@ function App() {
     <div className="h-screen text-center flex flex-col rounded">
       <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
         <div className="text-8xl font-semibold">{seconds}</div>
-        <button className="startButton" onClick={toggleTimer}>{buttonMessage}</button>
+        <button className="text-3xl mb-2" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
-      <div className='exercisesContainer rounded'>
+      <div className='text-3xl font-bold my-0 mx-auto bg-light-gray rounded w-4/5 p-2'>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.listOrder.map((listId) => {
             const list = state.lists[listId];

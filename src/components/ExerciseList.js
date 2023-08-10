@@ -4,12 +4,12 @@ import { Droppable } from "react-beautiful-dnd";
 
 export default function ExerciseList({list, exercises}) {
   return (
-    <div className="ExerciseList">
+    <div className="ExerciseList h-36">
       <h1 className="ListTitle">{list.message}</h1>
         <Droppable droppableId={list.id} key={list.id} direction="horizontal">
           {provided => (
             <div
-            className="Exercises"
+            className="flex justify-center"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >

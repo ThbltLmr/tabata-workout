@@ -2,41 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.flex-container {
-  display: flex;
-  align-items: center;
-}
-
-.exercisesContainer {
-  font-size: 2em;
-  font-weight: 700;
-  margin: 0 auto;
-  background-color: rgb(231, 231, 231);
-  width: 80%;
-  padding: 0.2em;
-}
-
-.ExerciseList {
-  padding: 0;
-  margin: 0;
-  margin-top: 0.5em;
-}
-
 .ListTitle {
   font-size: 0.8em;
-}
-
-.Exercises {
-  display: flex;
-  justify-content: center;
-}
-
-.ExerciseImage {
-  background-color: rgb(185, 185, 185);
-  margin: 0 0.5em;
-  width: 2em;
-  border-radius: 5%;
-  padding: 0.5em
 }
 
 .startButton {
