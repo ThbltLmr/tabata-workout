@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useState, useEffect } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
@@ -142,12 +142,12 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="tabataTimer">
-        <div className="timer">{seconds}</div>
+    <div className="h-screen text-center flex flex-col rounded">
+      <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
+        <div className="text-8xl font-semibold">{seconds}</div>
         <button className="startButton" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
-      <div className='exercisesContainer'>
+      <div className='exercisesContainer rounded'>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.listOrder.map((listId) => {
             const list = state.lists[listId];

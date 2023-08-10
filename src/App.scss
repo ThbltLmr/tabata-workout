@@ -1,26 +1,6 @@
-.App {
-  text-align: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.tabataTimer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 3em auto 1em auto;
-  background-color: rgb(231, 231, 231);
-  width: 80%;
-  padding: 0.2em;
-  border-radius: 1em;
-}
-
-.timer {
-  font-size: 6em;
-  font-weight: 700;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .flex-container {
   display: flex;
@@ -34,7 +14,6 @@
   background-color: rgb(231, 231, 231);
   width: 80%;
   padding: 0.2em;
-  border-radius: 1em;
 }
 
 .ExerciseList {
