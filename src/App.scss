@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 
-.body {
+html {
   font-size: 62.5%;
+}
+
+@media screen and (min-width: 760px) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 110%;
+  }
 }

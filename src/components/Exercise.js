@@ -4,7 +4,7 @@ export default function Exercise({exercise, index}) {
   return (
     <Draggable draggableId={exercise.id} index={index} key={exercise.id}>
       {(provided) => (
-        <div className="h-24"
+        <div className="h-24 m-2"
             id={exercise.id}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
