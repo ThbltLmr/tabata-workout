@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 
+
 function App() {
   const [state, setState] = useState(initalData);
 
