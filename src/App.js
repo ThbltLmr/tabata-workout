@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
-
+import Popup from './components/PopUp';
 
 function App() {
   const [state, setState] = useState(initalData);
@@ -13,13 +13,23 @@ function App() {
   const [buttonMessage, setButtonMessage] = useState("Start");
   const [workoutList, setWorkoutList] = useState(state.lists.workout.exerciseIds);
   const [currentExercise, setCurrentExercise] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     let interval = setInterval(() => {
       clearInterval(interval);
       if (buttonMessage === "Reset") {
         if (seconds === 0) {
-          if (workout) {
+          if (currentExercise === workoutList[workoutList.length - 1] && workout) {
+            clearInterval(interval);
+            setSeconds(10);
+            setButtonMessage("Start");
+            setWorkoutList(state.lists.workout.exerciseIds);
+            document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
+            setCurrentExercise("");
+            setWorkout(false);
+            setIsOpen(true);
+          } else if (workout) {
             setSeconds(10);
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
@@ -41,7 +51,7 @@ function App() {
         setSeconds(10);
       }
     }, 1000);
-  }, [seconds, workout, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
+  }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
     if (buttonMessage === "Start") {
@@ -157,6 +167,9 @@ function App() {
           })}
         </DragDropContext>
       </div>
+      {isOpen &&
+        <Popup isOpen={setIsOpen} />
+      }
     </div>
   );
 }
