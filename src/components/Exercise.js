@@ -4,12 +4,12 @@ export default function Exercise({exercise, index}) {
   return (
     <Draggable draggableId={exercise.id} index={index} key={exercise.id}>
       {(provided) => (
-        <div className="Exercise"
+        <div className="h-24 m-2"
             id={exercise.id}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}>
-          <img className="ExerciseImage" alt={exercise.name} src= {exercise.thumbnail}></img>
+          <img className="rounded p-3 mx-2 bg-dark-gray h-24" alt={exercise.name} src= {exercise.thumbnail}></img>
         </div>)}
     </Draggable>
   )
