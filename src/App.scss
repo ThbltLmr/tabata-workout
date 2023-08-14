@@ -59,6 +59,14 @@ body {
   html {
     font-size: 110%;
   }
+
+  .animate-10 {
+    animation-duration: 25s;
+  }
+
+  .animate-20 {
+    animation-duration: 53s;
+  }
 }
 
 @media screen and (min-width: 1400px) {
