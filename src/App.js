@@ -7,7 +7,6 @@ import Popup from './components/PopUp';
 
 function App() {
   const [state, setState] = useState(initalData);
-
   const [seconds, setSeconds] = useState(10);
   const [workout, setWorkout] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("Start");
