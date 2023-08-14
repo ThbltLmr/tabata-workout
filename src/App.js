@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
-
+import Popup from './components/PopUp';
 
 function App() {
   const [state, setState] = useState(initalData);
@@ -13,20 +13,114 @@ function App() {
   const [buttonMessage, setButtonMessage] = useState("Start");
   const [workoutList, setWorkoutList] = useState(state.lists.workout.exerciseIds);
   const [currentExercise, setCurrentExercise] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
+    function startFireworksAnimation() {
+      const canvas = document.createElement("canvas");
+      document.body.appendChild(canvas);
+      canvas.classList.add("fixed", "inset-0", "flex", "items-center", "justify-center", "z-40");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const ctx = canvas.getContext("2d");
+
+      function Particle(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = 5;
+        this.velocity = {
+          x: (Math.random() - 0.5) * 3,
+          y: Math.random() * -3,
+        };
+        this.gravity = 0.1;
+        this.opacity = 1;
+      }
+
+      Particle.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+      };
+
+      Particle.prototype.update = function () {
+        this.draw();
+        this.velocity.y += this.gravity;
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.opacity -= 0.01;
+      };
+
+      const particles = [];
+
+      function createParticles(x, y, color) {
+        for (let i = 0; i < 100; i++) {
+          particles.push(new Particle(x, y, color));
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((particle, index) => {
+          if (particle.opacity <= 0) {
+            particles.splice(index, 1);
+          } else {
+            particle.update();
+          }
+        });
+      }
+
+      const colors = ["#FF5733", "#FFC300", "#36D7B7", "#900C3F", "#3498DB"];
+      for (let i = 0; i < 10; i++) {
+        createParticles(Math.random() * canvas.width, Math.random() * canvas.height, colors[Math.floor(Math.random() * colors.length)]);
+      }
+      animate();
+      setTimeout(() => {
+        canvas.remove();
+      }, 800);
+    }
+
     let interval = setInterval(() => {
+      const circle = document.querySelector(".circle");
+      const svg = document.querySelector(".svg");
       clearInterval(interval);
       if (buttonMessage === "Reset") {
         if (seconds === 0) {
-          if (workout) {
+          if (currentExercise === workoutList[workoutList.length - 1] && workout) {
+            clearInterval(interval);
             setSeconds(10);
+            circle.classList.remove("animate-10", "animate-20");
+            setButtonMessage("Start");
+            setWorkoutList(state.lists.workout.exerciseIds);
+            document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
+            setCurrentExercise("");
+            setWorkout(false);
+            setIsOpen(true);
+            startFireworksAnimation();
+          } else if (workout) {
+            circle.classList.remove("animate-20");
+            const newCircle = circle.cloneNode(true);
+            circle.remove();
+            setSeconds(10);
+            svg.appendChild(newCircle);
+            newCircle.classList.add("animate-10");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
             setWorkout(false);
           } else {
+            circle.classList.remove("animate-10");
+            const newCircle = circle.cloneNode(true);
+            circle.remove();
             setWorkoutList(state.lists.workout.exerciseIds);
             setSeconds(20);
+            svg.appendChild(newCircle);
+            newCircle.classList.add("animate-20");
             document.getElementById(currentExercise).firstChild.style.border = "5px solid red";
             setWorkout(true);
           }
@@ -39,9 +133,10 @@ function App() {
         }
       } else {
         setSeconds(10);
+        circle.classList.remove("animate-10", "animate-20");
       }
     }, 1000);
-  }, [seconds, workout, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
+  }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
     if (buttonMessage === "Start") {
@@ -145,8 +240,11 @@ function App() {
   return (
     <div className="h-screen text-center flex flex-col rounded">
       <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
+        <svg className = "svg z-10" height="200" width="200">
+          <circle className="circle" cx="100" cy="100" r="95" stroke="#231f20" stroke-width="10" fill-opacity="0" />
+        </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
-        <button className="text-3xl mb-2" onClick={toggleTimer}>{buttonMessage}</button>
+        <button className="text-3xl mb-2 z-20" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
       <div className='text-3xl font-bold my-0 mx-auto bg-light-gray rounded w-4/5 p-2'>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -157,6 +255,9 @@ function App() {
           })}
         </DragDropContext>
       </div>
+      {isOpen &&
+        <Popup isOpen={setIsOpen} />
+      }
     </div>
   );
 }
