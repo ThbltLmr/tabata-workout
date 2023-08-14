@@ -14,11 +14,8 @@ body {
 }
 
 .svg {
-  // top: 50%;
-	// left: 50%;
   position: absolute;
   transform: rotate(-0.25turn);
-	// transform: translate(-50%,-50%);
 }
 
 .circle {
@@ -32,7 +29,6 @@ body {
 }
 
 .animate-20 {
-  // stroke-dashoffset: 1000;
   animation: stroke ease-out forwards;
   animation-duration: 49s;
 }

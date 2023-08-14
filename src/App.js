@@ -130,6 +130,7 @@ function App() {
           setSeconds(seconds - 1)
         } else {
           setSeconds(seconds - 1)
+          circle.classList.add("animate-10");
         }
       } else {
         setSeconds(10);
@@ -239,9 +240,9 @@ function App() {
 
   return (
     <div className="h-screen text-center flex flex-col rounded">
-      <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
+      <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-8 rounded">
         <svg className = "svg z-10" height="200" width="200">
-          <circle className="circle" cx="100" cy="100" r="95" stroke="#231f20" stroke-width="10" fill-opacity="0" />
+          <circle className="circle" cx="100" cy="100" r="5rem" stroke="#231f20" stroke-width="10" fill-opacity="0" />
         </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
         <button className="text-3xl mb-2 z-20" onClick={toggleTimer}>{buttonMessage}</button>
