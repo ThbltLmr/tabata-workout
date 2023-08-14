@@ -5,7 +5,7 @@ export default function Popup ({isOpen}) {
     isOpen(false);
   }
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-40 bg-dark-gray bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center z-30 bg-dark-gray bg-opacity-50">
       <div className="bg-white bg-opacity-100 rounded px-8 py-4 z-50">
         <h2 className="text-lg font-semibold mb-4">Congratulations!</h2>
         <p>You have finished your workout. Well done!</p>

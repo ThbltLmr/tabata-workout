@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 import Popup from './components/PopUp';
+import { wait } from '@testing-library/user-event/dist/utils';
 
 function App() {
   const [state, setState] = useState(initalData);
@@ -16,6 +17,76 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
+    function startFireworksAnimation() {
+      const canvas = document.createElement("canvas");
+      document.body.appendChild(canvas);
+      canvas.classList.add("fixed", "inset-0", "flex", "items-center", "justify-center", "z-40");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const ctx = canvas.getContext("2d");
+
+      function Particle(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = 2;
+        this.velocity = {
+          x: (Math.random() - 0.5) * 3,
+          y: Math.random() * -3,
+        };
+        this.gravity = 0.1;
+        this.opacity = 1;
+      }
+
+      Particle.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fill();
+      };
+
+      Particle.prototype.update = function () {
+        this.draw();
+        this.velocity.y += this.gravity;
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.opacity -= 0.01;
+      };
+
+      const particles = [];
+
+      function createParticles(x, y, color) {
+        for (let i = 0; i < 100; i++) {
+          particles.push(new Particle(x, y, color));
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((particle, index) => {
+          if (particle.opacity <= 0) {
+            particles.splice(index, 1);
+          } else {
+            particle.update();
+          }
+        });
+      }
+
+      const colors = ["#FF5733", "#FFC300", "#36D7B7", "#900C3F", "#3498DB"];
+      for (let i = 0; i < 10; i++) {
+        createParticles(Math.random() * canvas.width, Math.random() * canvas.height, colors[Math.floor(Math.random() * colors.length)]);
+      }
+      animate();
+      setTimeout(() => {
+        canvas.remove();
+      }, 800);
+    }
+
     let interval = setInterval(() => {
       clearInterval(interval);
       if (buttonMessage === "Reset") {
@@ -29,6 +100,7 @@ function App() {
             setCurrentExercise("");
             setWorkout(false);
             setIsOpen(true);
+            startFireworksAnimation();
           } else if (workout) {
             setSeconds(10);
             setWorkoutList(state.lists.workout.exerciseIds);
@@ -50,7 +122,7 @@ function App() {
       } else {
         setSeconds(10);
       }
-    }, 1000);
+    }, 100);
   }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
