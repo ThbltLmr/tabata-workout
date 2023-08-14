@@ -7,6 +7,44 @@ html {
   font-size: 62.5%;
 }
 
+body {
+	height: 100vh;
+	position: relative;
+	background-color: #f5f5f5;
+}
+
+.svg {
+  // top: 50%;
+	// left: 50%;
+  position: absolute;
+  transform: rotate(-0.25turn);
+	// transform: translate(-50%,-50%);
+}
+
+.circle {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.animate-10 {
+  animation: stroke ease-out forwards;
+  animation-duration: 25s;
+}
+
+.animate-20 {
+  // stroke-dashoffset: 1000;
+  animation: stroke ease-out forwards;
+  animation-duration: 49s;
+}
+
+@keyframes stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+
 @media screen and (min-width: 760px) {
   html {
     font-size: 80%;

@@ -4,7 +4,6 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 import Popup from './components/PopUp';
-import { wait } from '@testing-library/user-event/dist/utils';
 
 function App() {
   const [state, setState] = useState(initalData);
@@ -31,7 +30,7 @@ function App() {
         this.x = x;
         this.y = y;
         this.color = color;
-        this.radius = 2;
+        this.radius = 5;
         this.velocity = {
           x: (Math.random() - 0.5) * 3,
           y: Math.random() * -3,
@@ -88,12 +87,15 @@ function App() {
     }
 
     let interval = setInterval(() => {
+      const circle = document.querySelector(".circle");
+      const svg = document.querySelector(".svg");
       clearInterval(interval);
       if (buttonMessage === "Reset") {
         if (seconds === 0) {
           if (currentExercise === workoutList[workoutList.length - 1] && workout) {
             clearInterval(interval);
             setSeconds(10);
+            circle.classList.remove("animate-10", "animate-20");
             setButtonMessage("Start");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
@@ -102,13 +104,23 @@ function App() {
             setIsOpen(true);
             startFireworksAnimation();
           } else if (workout) {
+            circle.classList.remove("animate-20");
+            const newCircle = circle.cloneNode(true);
+            circle.remove();
             setSeconds(10);
+            svg.appendChild(newCircle);
+            newCircle.classList.add("animate-10");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
             setWorkout(false);
           } else {
+            circle.classList.remove("animate-10");
+            const newCircle = circle.cloneNode(true);
+            circle.remove();
             setWorkoutList(state.lists.workout.exerciseIds);
             setSeconds(20);
+            svg.appendChild(newCircle);
+            newCircle.classList.add("animate-20");
             document.getElementById(currentExercise).firstChild.style.border = "5px solid red";
             setWorkout(true);
           }
@@ -121,8 +133,9 @@ function App() {
         }
       } else {
         setSeconds(10);
+        circle.classList.remove("animate-10", "animate-20");
       }
-    }, 100);
+    }, 1000);
   }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
@@ -227,8 +240,11 @@ function App() {
   return (
     <div className="h-screen text-center flex flex-col rounded">
       <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
+        <svg className = "svg z-10" height="200" width="200">
+          <circle className="circle" cx="100" cy="100" r="95" stroke="#231f20" stroke-width="10" fill-opacity="0" />
+        </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
-        <button className="text-3xl mb-2" onClick={toggleTimer}>{buttonMessage}</button>
+        <button className="text-3xl mb-2 z-20" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
       <div className='text-3xl font-bold my-0 mx-auto bg-light-gray rounded w-4/5 p-2'>
         <DragDropContext onDragEnd={onDragEnd}>
