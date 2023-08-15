@@ -19,8 +19,8 @@ export default function ExerciseList({list, exercises}) {
               {provided.placeholder}
               {exercises.length === 0 &&
                 <div className="flex justify-center flex-wrap">
-                  <div className="h-24 m-2 w-24 border-dark-gray border-dashed border-4 rounded flex justify-center items-center">
-                    <div className="text-6xl text-center text-dark-gray my-auto">
+                  <div className="h-24 m-2 w-24 border-yellow border-dashed border-4 rounded flex justify-center items-center">
+                    <div className="text-6xl text-center text-yellow my-auto">
                     <FontAwesomeIcon icon={faPlus} />
                     </div>
                   </div>

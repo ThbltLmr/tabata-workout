@@ -11,12 +11,12 @@ const initalData = {
     availableExercises: {
       id: 'availableExercises',
       exerciseIds: ['exercise-1', 'exercise-2', 'exercise-3', 'exercise-4', 'exercise-5', 'exercise-6'],
-      message: "Drag exercises to the workout area to build your workout."
+      message: "Available exercises"
     },
     workout: {
       id: 'workout',
       exerciseIds: [],
-      message: "Drag exercises here to build your workout."
+      message: "Your workout"
     }
   },
   listOrder: ['workout', 'availableExercises']
