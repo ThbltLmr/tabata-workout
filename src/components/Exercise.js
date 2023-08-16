@@ -9,7 +9,7 @@ export default function Exercise({exercise, index}) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}>
-          <img className="rounded p-3 mx-2 bg-dark-gray h-24" alt={exercise.name} src= {exercise.thumbnail}></img>
+          <img className="rounded p-3 mx-2 bg-yellow h-24" alt={exercise.name} src= {exercise.thumbnail}></img>
         </div>)}
     </Draggable>
   )

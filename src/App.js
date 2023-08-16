@@ -7,7 +7,6 @@ import Popup from './components/PopUp';
 
 function App() {
   const [state, setState] = useState(initalData);
-
   const [seconds, setSeconds] = useState(10);
   const [workout, setWorkout] = useState(false);
   const [buttonMessage, setButtonMessage] = useState("Start");
@@ -98,7 +97,7 @@ function App() {
             circle.classList.remove("animate-10", "animate-20");
             setButtonMessage("Start");
             setWorkoutList(state.lists.workout.exerciseIds);
-            document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
+            document.getElementById(currentExercise).firstChild.style.border = "0px solid black";
             setCurrentExercise("");
             setWorkout(false);
             setIsOpen(true);
@@ -111,7 +110,7 @@ function App() {
             svg.appendChild(newCircle);
             newCircle.classList.add("animate-10");
             setWorkoutList(state.lists.workout.exerciseIds);
-            document.getElementById(currentExercise).firstChild.style.border = "0px solid red";
+            document.getElementById(currentExercise).firstChild.style.border = "0px solid black";
             setWorkout(false);
           } else {
             circle.classList.remove("animate-10");
@@ -121,7 +120,7 @@ function App() {
             setSeconds(20);
             svg.appendChild(newCircle);
             newCircle.classList.add("animate-20");
-            document.getElementById(currentExercise).firstChild.style.border = "5px solid red";
+            document.getElementById(currentExercise).firstChild.style.border = "5px solid black";
             setWorkout(true);
           }
         } else if (seconds === 1 && !workout) {
@@ -130,6 +129,7 @@ function App() {
           setSeconds(seconds - 1)
         } else {
           setSeconds(seconds - 1)
+          circle.classList.add("animate-10");
         }
       } else {
         setSeconds(10);
@@ -239,14 +239,17 @@ function App() {
 
   return (
     <div className="h-screen text-center flex flex-col rounded">
-      <div className="bg-light-gray flex flex-col items-center justify-center mt-12 mb-4 mx-auto w-4/5 p-1 rounded">
+      <div className='w-4/5 mx-auto'>
+        <h1 className="text-xl mb-4 mt-2 italic">Drag and drop exercises in the workout area, then hit start to launch the timer!</h1>
+      </div>
+      <div className="bg-beige flex flex-col items-center justify-center mb-4 mx-auto w-4/5 p-8 rounded">
         <svg className = "svg z-10" height="200" width="200">
-          <circle className="circle" cx="100" cy="100" r="95" stroke="#231f20" stroke-width="10" fill-opacity="0" />
+          <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="10" fill-opacity="0" />
         </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
-        <button className="text-3xl mb-2 z-20" onClick={toggleTimer}>{buttonMessage}</button>
+        <button className="text-2xl mb-2 z-20 bg-yellow text-black px-2 py-1 rounded" onClick={toggleTimer}>{buttonMessage}</button>
       </div>
-      <div className='text-3xl font-bold my-0 mx-auto bg-light-gray rounded w-4/5 p-2'>
+      <div className='text-3xl font-bold my-0 mx-auto bg-beige rounded w-4/5 p-2'>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.listOrder.map((listId) => {
             const list = state.lists[listId];
