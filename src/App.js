@@ -244,7 +244,7 @@ function App() {
       </div>
       <div className="bg-beige flex flex-col items-center justify-center mb-4 mx-auto w-4/5 p-8 rounded">
         <svg className = "svg z-10" height="200" width="200">
-          <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="10" fill-opacity="0" />
+          <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="5" fill-opacity="0" />
         </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
         <button className="text-2xl mb-2 z-20 bg-yellow text-black px-2 py-1 rounded" onClick={toggleTimer}>{buttonMessage}</button>
