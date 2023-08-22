@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import initalData from './exercise_data';
 import ExerciseList from './components/ExerciseList';
 import Popup from './components/PopUp';
+import MouseOverPopover from './components/MouseOverPopover';
 
 function App() {
   const [state, setState] = useState(initalData);
@@ -13,6 +14,7 @@ function App() {
   const [workoutList, setWorkoutList] = useState(state.lists.workout.exerciseIds);
   const [currentExercise, setCurrentExercise] = useState("")
   const [isOpen, setIsOpen] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
 
   useEffect(() => {
     function startFireworksAnimation() {
@@ -139,10 +141,13 @@ function App() {
   }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
 
   const toggleTimer = () => {
+    const circle = document.querySelector(".circle");
     if (buttonMessage === "Start") {
       setButtonMessage("Reset");
     } else {
       setButtonMessage("Start");
+      circle.classList.remove("animate-10", "animate-20");
+      setCurrentExercise("");
       setSeconds(10);
     }
   }
@@ -237,6 +242,14 @@ function App() {
       }
   }
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  }
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  }
+
   return (
     <div className="h-screen text-center flex flex-col rounded">
       <div className='w-4/5 mx-auto'>
@@ -247,7 +260,12 @@ function App() {
           <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="5" fill-opacity="0" />
         </svg>
         <div className="text-8xl font-semibold">{seconds}</div>
-        <button className="text-2xl mb-2 z-20 bg-yellow text-black px-2 py-1 rounded" onClick={toggleTimer}>{buttonMessage}</button>
+        <button className={`text-2xl mb-2 z-20 ${workoutList.length > 0 ? "bg-yellow  text-black" : "bg-zinc-200 text-zinc-300"} px-2 py-1 rounded`}
+          disabled={workoutList.length === 0} onClick={toggleTimer}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}>
+            {buttonMessage}
+        </button>
       </div>
       <div className='text-3xl font-bold my-0 mx-auto bg-beige rounded w-4/5 p-2'>
         <DragDropContext onDragEnd={onDragEnd}>
@@ -260,6 +278,9 @@ function App() {
       </div>
       {isOpen &&
         <Popup isOpen={setIsOpen} />
+      }
+      {isHovering &&
+        <MouseOverPopover />
       }
     </div>
   );
