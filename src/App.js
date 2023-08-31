@@ -251,15 +251,23 @@ function App() {
   }
 
   return (
-    <div className="h-screen text-center flex flex-col rounded mt-4">
+    <div className="h-screen text-center flex flex-col rounded mt-2">
       <div className="bg-beige flex flex-col items-center justify-center mb-4 mx-auto w-4/5 p-6 rounded">
         <div className='mb-16'>
           <svg className = "svg z-10" height="200" width="200">
             <circle className="circle" cx="100" cy="100" r="5rem" stroke="#e76f51" stroke-width="5" fill-opacity="0" />
           </svg>
-          <div className="text-8xl font-semibold pt-3">{seconds}</div>
+          {workoutList.length > 0 && buttonMessage === "Start" &&
+            <div className="text-3xl font-semibold h-28 italic pt-12">Press start when you're ready!</div>
+          }
+          {workoutList.length > 0 && buttonMessage === "Reset" &&
+            <div className="text-8xl font-semibold pt-3 h-28">{seconds}</div>
+          }
+          {workoutList.length === 0 &&
+            <div className="text-3xl font-semibold h-28 italic m-auto pt-12">Start by adding exercises to your workout</div>
+          }
        </div>
-        <button className={`text-4xl  font-semibold mb-2 z-20 ${workoutList.length > 0 ? "bg-yellow  text-black" : "bg-zinc-200 text-zinc-300"} px-6 py-2 rounded`}
+        <button className={`text-4xl font-semibold mb-2 z-20 ${workoutList.length > 0 ? "bg-yellow  text-black" : "bg-yellow  text-black bg-opacity-20 text-opacity-20"} px-6 py-2 rounded`}
           disabled={workoutList.length === 0} onClick={toggleTimer}
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}>
