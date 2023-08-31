@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/tabata-workout/static/css/main.a44724e3.css",
+    "main.css": "/tabata-workout/static/css/main.2a3c8173.css",
     "main.js": "/tabata-workout/static/js/main.d87b4ccc.js",
     "static/js/787.72a2977c.chunk.js": "/tabata-workout/static/js/787.72a2977c.chunk.js",
     "index.html": "/tabata-workout/index.html",
-    "main.a44724e3.css.map": "/tabata-workout/static/css/main.a44724e3.css.map",
+    "main.2a3c8173.css.map": "/tabata-workout/static/css/main.2a3c8173.css.map",
     "main.d87b4ccc.js.map": "/tabata-workout/static/js/main.d87b4ccc.js.map",
     "787.72a2977c.chunk.js.map": "/tabata-workout/static/js/787.72a2977c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a44724e3.css",
+    "static/css/main.2a3c8173.css",
     "static/js/main.d87b4ccc.js"
   ]
 }
