@@ -7,7 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 export default function ExerciseList({list, exercises}) {
   return (
     <div className="">
-      <h1 className="text-xl mb-2">{list.message}</h1>
+      <h1 className="text-xl mb-2">{exercises.length > 0 ? list.message : "Drag exercises below to add them to your workout"}</h1>
         <Droppable droppableId={list.id} key={list.id} direction="horizontal">
           {provided => (
             <div
