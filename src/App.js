@@ -251,16 +251,15 @@ function App() {
   }
 
   return (
-    <div className="h-screen text-center flex flex-col rounded">
-      <div className='w-4/5 mx-auto'>
-        <h1 className="text-xl mb-4 mt-2 italic">Drag and drop exercises in the workout area, then hit start to launch the timer!</h1>
-      </div>
-      <div className="bg-beige flex flex-col items-center justify-center mb-4 mx-auto w-4/5 p-8 rounded">
-        <svg className = "svg z-10" height="200" width="200">
-          <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="5" fill-opacity="0" />
-        </svg>
-        <div className="text-8xl font-semibold">{seconds}</div>
-        <button className={`text-2xl mb-2 z-20 ${workoutList.length > 0 ? "bg-yellow  text-black" : "bg-zinc-200 text-zinc-300"} px-2 py-1 rounded`}
+    <div className="h-screen text-center flex flex-col rounded mt-4">
+      <div className="bg-beige flex flex-col items-center justify-center mb-4 mx-auto w-4/5 p-6 rounded">
+        <div className='mb-16'>
+          <svg className = "svg z-10" height="200" width="200">
+            <circle className="circle" cx="100" cy="100" r="5rem" stroke="#f5cb5c" stroke-width="5" fill-opacity="0" />
+          </svg>
+          <div className="text-8xl font-semibold pt-3">{seconds}</div>
+       </div>
+        <button className={`text-4xl  font-semibold mb-2 z-20 ${workoutList.length > 0 ? "bg-yellow  text-black" : "bg-zinc-200 text-zinc-300"} px-6 py-2 rounded`}
           disabled={workoutList.length === 0} onClick={toggleTimer}
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}>
@@ -279,7 +278,7 @@ function App() {
       {isOpen &&
         <Popup isOpen={setIsOpen} />
       }
-      {isHovering &&
+      {isHovering && workoutList.length === 0 &&
         <MouseOverPopover />
       }
     </div>
