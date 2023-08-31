@@ -254,7 +254,7 @@ function App() {
     <div className="h-screen text-center flex flex-col rounded">
       <div className="bg-beige flex flex-col items-center justify-center mb-2 mx-auto w-4/5 p-4 rounded">
         <div className='mb-16'>
-          <svg className = "svg z-10" height="20em" width="20em">
+          <svg className = "svg z-10" height="200" width="200">
             <circle className="circle" cx="100" cy="100" r="5rem" stroke="#e76f51" stroke-width="5" fill-opacity="0" />
           </svg>
           {workoutList.length > 0 && buttonMessage === "Start" &&
