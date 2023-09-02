@@ -88,8 +88,8 @@ function App() {
     }
 
     let interval = setInterval(() => {
-      const circle = document.querySelector(".circle");
-      const svg = document.querySelector(".svg");
+      // const circle = document.querySelector(".circle");
+      // const svg = document.querySelector(".svg");
       clearInterval(interval);
       if (buttonMessage === "Reset") {
         if (seconds === 0) {
@@ -106,21 +106,21 @@ function App() {
             startFireworksAnimation();
           } else if (workout) {
             // circle.classList.remove("animate-20");
-            const newCircle = circle.cloneNode(true);
-            circle.remove();
+            // const newCircle = circle.cloneNode(true);
+            // circle.remove();
             setSeconds(10);
-            svg.appendChild(newCircle);
+            // svg.appendChild(newCircle);
             // newCircle.classList.add("animate-10");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid black";
             setWorkout(false);
           } else {
             // circle.classList.remove("animate-10");
-            const newCircle = circle.cloneNode(true);
-            circle.remove();
+            // const newCircle = circle.cloneNode(true);
+            // circle.remove();
             setWorkoutList(state.lists.workout.exerciseIds);
             setSeconds(20);
-            svg.appendChild(newCircle);
+            // svg.appendChild(newCircle);
             // newCircle.classList.add("animate-20");
             document.getElementById(currentExercise).firstChild.style.border = "5px solid black";
             setWorkout(true);
