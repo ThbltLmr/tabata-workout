@@ -96,7 +96,7 @@ function App() {
           if (currentExercise === workoutList[workoutList.length - 1] && workout) {
             clearInterval(interval);
             setSeconds(10);
-            circle.classList.remove("animate-10", "animate-20");
+            // circle.classList.remove("animate-10", "animate-20");
             setButtonMessage("Start");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid black";
@@ -105,23 +105,23 @@ function App() {
             setIsOpen(true);
             startFireworksAnimation();
           } else if (workout) {
-            circle.classList.remove("animate-20");
+            // circle.classList.remove("animate-20");
             const newCircle = circle.cloneNode(true);
             circle.remove();
             setSeconds(10);
             svg.appendChild(newCircle);
-            newCircle.classList.add("animate-10");
+            // newCircle.classList.add("animate-10");
             setWorkoutList(state.lists.workout.exerciseIds);
             document.getElementById(currentExercise).firstChild.style.border = "0px solid black";
             setWorkout(false);
           } else {
-            circle.classList.remove("animate-10");
+            // circle.classList.remove("animate-10");
             const newCircle = circle.cloneNode(true);
             circle.remove();
             setWorkoutList(state.lists.workout.exerciseIds);
             setSeconds(20);
             svg.appendChild(newCircle);
-            newCircle.classList.add("animate-20");
+            // newCircle.classList.add("animate-20");
             document.getElementById(currentExercise).firstChild.style.border = "5px solid black";
             setWorkout(true);
           }
@@ -131,11 +131,11 @@ function App() {
           setSeconds(seconds - 1)
         } else {
           setSeconds(seconds - 1)
-          circle.classList.add("animate-10");
+          // circle.classList.add("animate-10");
         }
       } else {
         setSeconds(10);
-        circle.classList.remove("animate-10", "animate-20");
+        // circle.classList.remove("animate-10", "animate-20");
       }
     }, 1000);
   }, [seconds, workout, isOpen, buttonMessage, workoutList, currentExercise, state.lists.workout.exerciseIds])
@@ -254,9 +254,10 @@ function App() {
     <div className="h-screen text-center flex flex-col rounded">
       <div className="bg-beige flex flex-col items-center justify-center mb-2 mx-auto w-4/5 p-4 rounded">
         <div className='mb-16'>
+          {/* removing SVG due to unstable animation durations
           <svg className = "svg z-10" height="11em" width="14em">
             <circle className="circle" cx="50%" cy="50%" r="4rem" stroke="#e76f51" stroke-width="5" fill-opacity="0" />
-          </svg>
+          </svg> */}
           {workoutList.length > 0 && buttonMessage === "Start" &&
             <div className="text-3xl font-semibold h-28 italic pt-12">Press start when you're ready!</div>
           }
